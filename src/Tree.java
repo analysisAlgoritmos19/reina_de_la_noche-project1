@@ -1,5 +1,3 @@
-package progra;
-
 import java.util.Random;;
 
 public class Tree {

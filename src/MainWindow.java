@@ -1,5 +1,3 @@
-package progra;
-
 import javax.swing.JOptionPane;
 
 public class MainWindow extends javax.swing.JFrame {
