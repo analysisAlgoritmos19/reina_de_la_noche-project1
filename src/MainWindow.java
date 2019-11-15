@@ -9,7 +9,6 @@ public class MainWindow extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
-
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         dist = new javax.swing.JTextField();
@@ -146,6 +145,8 @@ public class MainWindow extends javax.swing.JFrame {
 
             if(growth <= 1){
                 TreeGenerator l = new TreeGenerator(leafSize, trunkSize, distance, growth, levels, quantity);
+                Greedy test = new Greedy(l);
+                test.printTrees();
             }
         }
         catch(Exception e){

@@ -1,6 +1,7 @@
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class TreeGenerator {
     private int Max_leaf_size;
@@ -20,7 +21,7 @@ public class TreeGenerator {
         this.Max_Levels = p_levels;
         this.Amount_of_trees = p_amount_of_trees;
         generate_trees();
-        printTrees();
+        //printTrees();
     }
 
     public void generate_trees(){
@@ -35,7 +36,7 @@ public class TreeGenerator {
         }
     }
 
-    public void viability_of_tree(@NotNull Tree p_tree){
+    public void viability_of_tree(Tree p_tree){
         float viability;
         float currentDistance = p_tree.getDistance() / Max_distance;     //Menor = mejor
         float currentLeaf = 1 - (p_tree.getLeaf_size() / (Max_leaf_size + 1));     //Mayor = mejor

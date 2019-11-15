@@ -1,6 +1,7 @@
-import org.jetbrains.annotations.Contract;
 
-public class Tree {
+
+
+public class Tree implements Comparable<Tree>{
 
     private float leaf_size;
     private float distance;
@@ -12,8 +13,7 @@ public class Tree {
     private float total_time;
 
 
-    @Contract(pure = true)
-    public Tree(float leaf_size, float distance, float trunk, float growth, int levels){
+    public Tree(float leaf_size, float distance, float trunk, float growth, int levels) {
         this.leaf_size = leaf_size;
         this.distance = distance;
         this.trunk = trunk;
@@ -56,5 +56,15 @@ public class Tree {
 
     public void setTotalTime(float time) {
         this.total_time = time;
+    }
+
+    @Override
+    public int compareTo(Tree o) {
+        if(o.getScore() > score)
+            return -1;
+        else if(o.getScore() < score)
+            return 0;
+        else
+            return 1;
     }
 }
