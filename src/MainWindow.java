@@ -163,6 +163,9 @@ public class MainWindow extends javax.swing.JFrame {
             if(growth <= 1){
                 TreeGenerator l = new TreeGenerator(leafSize, trunkSize, distance, growth, levels, quantity);
             }
+            else{
+                JOptionPane.showMessageDialog(this, "Tree growth should be less than 1", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(this, "All values should be numbers...", "Error", JOptionPane.ERROR_MESSAGE);
@@ -179,12 +182,19 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void NEW_BUTTONActionPerformed(java.awt.event.ActionEvent evt) {
         Random r = new Random();
-        int leaf_size =  r.nextInt(30);
-        int distance = r.nextInt(100);
-        int trunk = r.nextInt(35);
-        float growth = (float)(Math.random());
-        int levels = r.nextInt(18);
-        int amounts = r.nextInt(120);
+        int leaf_size =  r.nextInt(30) + 1;
+        int distance = r.nextInt(100) + 1;
+        int trunk = r.nextInt(35) + 1;
+        float growth = (float)(r.nextInt(9) + 1) / 10;
+        int levels = r.nextInt(18) + 1;
+        int amounts = r.nextInt(120) + 1;
+
+        System.out.println("Leaf size: " + leaf_size);
+        System.out.println("Trunk size: " + trunk);
+        System.out.println("Distance: " + distance);
+        System.out.println("Growth: " + growth);
+        System.out.println("Max leves: " + levels);
+        System.out.println("Amount of trees: " + amounts + "\n");
 
         TreeGenerator l = new TreeGenerator(leaf_size, trunk, distance, growth, levels, amounts);
     }

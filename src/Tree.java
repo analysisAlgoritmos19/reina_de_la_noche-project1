@@ -7,7 +7,7 @@ public class Tree {
     private float growth;
     private int levels;
     private double amount_leaves;
-    private float score;
+    private double score;
     private double total_time;
 
     public Tree(float leaf_size, float distance, float trunk, float growth, int levels){
@@ -17,6 +17,16 @@ public class Tree {
         this.growth = growth;
         this.levels = levels;
         this.amount_leaves = Math.pow(2, levels);
+    }
+
+    public void printTree(){
+        System.out.println("Score: " + score);
+        System.out.println("Distance: " + distance);
+        System.out.println("Trunk size: " + trunk);
+        System.out.println("Levels: " + levels);
+        System.out.println("Growth: " + growth);
+        System.out.println("Leaf size: " + leaf_size);
+        System.out.println("Amount of leaves: " + amount_leaves);
     }
 
     public float getLeaf_size() {
@@ -43,11 +53,11 @@ public class Tree {
         return amount_leaves;
     }
 
-    public float getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(float score) {
+    public void setScore(double score) {
         this.score = score;
     }
 

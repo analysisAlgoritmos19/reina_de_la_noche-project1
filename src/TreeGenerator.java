@@ -1,4 +1,6 @@
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.TreeMap;
@@ -10,8 +12,9 @@ public class TreeGenerator {
     private float Max_growth;
     private int Max_Levels;
     private int Amount_of_trees;
+    private float Worst_case;
     private ArrayList<Tree> List_of_trees;
-    private TreeMap<Float, Tree> Sorted_Scores = new TreeMap<Float, Tree>();
+    private TreeMap<Double, Tree> Sorted_Scores = new TreeMap<Double, Tree>();
     private TreeMap<Float, Tree> Sorted_Distances = new TreeMap<Float, Tree>();
 
     public TreeGenerator(int p_max_leaf_size, int p_max_trunk, int p_max_distance, float p_max_growth,int p_levels, int p_amount_of_trees) {
@@ -22,33 +25,60 @@ public class TreeGenerator {
         this.Max_growth = p_max_growth;
         this.Max_Levels = p_levels;
         this.Amount_of_trees = p_amount_of_trees;
+        set_Worst_case();
+        System.out.println("Worst case: " + Worst_case);
         generate_trees();
         printTrees();
     }
 
     public void generate_trees(){
         for (int tree_index = 0; tree_index < Amount_of_trees; tree_index++) {
-            float leaf_size =  (float)(Math.random()*((Max_leaf_size-1)+1))+1;
             Random r = new Random();
+            float leaf_size =  r.nextInt(Max_leaf_size - 1) + 1;
             int distance = r.nextInt(Max_distance - 1) + 1;
             int trunk = r.nextInt(Max_leaf_size - 1) + 1;
-            float growth = (float)(Math.random());
-            int levels = (int)(Math.random()*((Max_Levels - 1) + 1)) + 1;
+            float growth = ((float)(r.nextInt(8) + 1)) / 10;
+            int levels = r.nextInt(Max_Levels - 1) + 1;
             Tree tree = new Tree(leaf_size, distance, trunk, growth, levels);
             viability_of_tree(tree);
         }
     }
 
     public void viability_of_tree(Tree p_tree){
-        float viability;
-        float currentDistance = p_tree.getDistance() / Max_distance;     //Menor = mejor
-        float currentLeaf = 1 - (p_tree.getLeaf_size() / (Max_leaf_size + 1));     //Mayor = mejor
-        float currentTrunk = p_tree.getTrunk() / Max_trunk;              //Menor = mejor
-        float currentGrowth = p_tree.getGrowth();                    //Mayor = mejor
-        float currentLevels = (float)(1 - (p_tree.getLevels() / (18 + 1)));   //Mayor = mejor
-        viability = currentDistance * currentLeaf * currentTrunk * currentGrowth * currentLevels;
-        p_tree.setScore(viability);
+        float distance_value, viability;
+        float current_Distance = p_tree.getDistance();     //Menor = mejor
+        float current_Leaf = p_tree.getLeaf_size();     //Mayor = mejor
+        float current_Trunk = p_tree.getTrunk();              //Menor = mejor
+        float current_Growth = p_tree.getGrowth();                    //Mayor = mejor
+        float current_Levels = (float)p_tree.getLevels();   //Mayor = mejor
+
+        distance_value = current_Distance + current_Trunk;
+        float current = current_Trunk;
+        for(int i = 0; i < current_Levels; i++){
+            current += current * current_Growth;
+        }
+        distance_value += current;
+
+        // System.out.println("Distance_value: " + distance_value);
+
+        float distance_ratio = distance_value / Worst_case;
+        viability = distance_ratio * (current_Leaf / Max_leaf_size);
+        // System.out.println("Viability: " + viability + "\n");
+
+        BigDecimal bd = new BigDecimal(viability).setScale(3, RoundingMode.HALF_UP);
+        double rounded_viability = bd.doubleValue();
+        p_tree.setScore(rounded_viability);
         List_of_trees.add(p_tree);
+    }
+
+    public void set_Worst_case(){
+        Worst_case = Max_distance;
+        double current = Max_trunk;
+        for(int i = 0; i < Max_Levels; i++){
+            current += current * 0.9;
+        }
+        Worst_case += current;
+        Worst_case *= 1;
     }
 
     public void printTrees(){
