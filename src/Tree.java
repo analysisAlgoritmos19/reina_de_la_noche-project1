@@ -8,8 +8,8 @@ public class Tree {
     private float growth;
     private int levels;
     private double amount_leaves;
-    private float score;
-    private float total_time;
+    private double score;
+    private double total_time;
 
 
     @Contract(pure = true)
@@ -46,11 +46,11 @@ public class Tree {
         return amount_leaves;
     }
 
-    public float getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(float score) {
+    public void setScore(double score) {
         this.score = score;
     }
 

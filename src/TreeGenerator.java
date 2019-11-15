@@ -1,5 +1,7 @@
 import org.jetbrains.annotations.NotNull;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public class TreeGenerator {
@@ -20,7 +22,7 @@ public class TreeGenerator {
         this.Max_Levels = p_levels;
         this.Amount_of_trees = p_amount_of_trees;
         generate_trees();
-        printTrees();
+        //printTrees();
     }
 
     public void generate_trees(){
@@ -30,6 +32,12 @@ public class TreeGenerator {
             float trunk = (float)(Math.random()*((Max_leaf_size-1)+1))+1;
             float growth = (float)(Math.random()*((Max_growth-1)+1))+1;
             int levels = (int)(Math.random()*((Max_growth-1)+1))+1;
+            Random r = new Random();
+            float leaf_size =  r.nextInt(Max_leaf_size + 1) + 1;
+            int distance = r.nextInt(Max_distance - 1) + 1;
+            int trunk = r.nextInt(Max_leaf_size - 1) + 1;
+            float growth = (r.nextInt(9) + 1) / 10;
+            int levels = r.nextInt(Max_Levels + 1) + 1;
             Tree tree = new Tree(leaf_size, distance, trunk, growth, levels);
             viability_of_tree(tree);
         }
@@ -40,10 +48,12 @@ public class TreeGenerator {
         float currentDistance = p_tree.getDistance() / Max_distance;     //Menor = mejor
         float currentLeaf = 1 - (p_tree.getLeaf_size() / (Max_leaf_size + 1));     //Mayor = mejor
         float currentTrunk = p_tree.getTrunk() / Max_trunk;              //Menor = mejor
-        float currentGrowth = p_tree.getGrowth();                    //Mayor = mejor
-        float currentLevels = (float)(1 - (p_tree.getLevels() / (18 + 1)));   //Mayor = mejor
+        float currentGrowth = 1 - p_tree.getGrowth();                    //Mayor = mejor
+        float currentLevels = (float)(1 - (p_tree.getLevels() / (Max_Levels + 1)));   //Mayor = mejor
         viability = currentDistance * currentLeaf * currentTrunk * currentGrowth * currentLevels;
-        p_tree.setScore(viability);
+        BigDecimal bd = new BigDecimal(viability).setScale(3, RoundingMode.HALF_UP);
+        double rounded_viability = bd.doubleValue();
+        p_tree.setScore(rounded_viability);
         List_of_trees.add(p_tree);
     }
 

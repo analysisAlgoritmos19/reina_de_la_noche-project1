@@ -161,6 +161,19 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }
 
+    private void NEW_BUTTONActionPerformed(java.awt.event.ActionEvent evt) {
+        Random r = new Random();
+        int leaf_size =  r.nextInt(30);
+        int distance = r.nextInt(100);
+        int trunk = r.nextInt(35);
+        float growth = (float)(Math.random());
+        int levels = r.nextInt(18);
+        int amounts = r.nextInt(120);
+
+        TreeGenerator l = new TreeGenerator(leaf_size, trunk, distance, growth, levels, amounts);
+
+    }
+
     /**
      * @param args the command line arguments
      */
