@@ -133,18 +133,20 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         int distance, leafSize, trunkSize;
-        int growth;
+        float growth;
         int quantity, levels;
 
         try{
-            distance = Integer.parseInt(dist.getText());
-            leafSize = Integer.parseInt(leaf.getText());
-            trunkSize = Integer.parseInt(trunk.getText());
-            growth = Integer.parseInt(growthBox.getText());
-            levels = Integer.parseInt(levelBox.getText());
-            quantity = Integer.parseInt(amount.getText());
+            distance = java.lang.Math.abs(Integer.parseInt(dist.getText()));
+            leafSize = java.lang.Math.abs(Integer.parseInt(leaf.getText()));
+            trunkSize = java.lang.Math.abs(Integer.parseInt(trunk.getText()));
+            growth = java.lang.Math.abs(Float.parseFloat(growthBox.getText()));
+            levels = java.lang.Math.abs(Integer.parseInt(levelBox.getText()));
+            quantity = java.lang.Math.abs(Integer.parseInt(amount.getText()));
 
-            TreeGenerator l = new TreeGenerator(leafSize, trunkSize, distance, growth, levels, quantity);
+            if(growth <= 1){
+                TreeGenerator l = new TreeGenerator(leafSize, trunkSize, distance, growth, levels, quantity);
+            }
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(this, "All values should be numbers...", "Error", JOptionPane.ERROR_MESSAGE);

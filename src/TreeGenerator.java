@@ -1,17 +1,17 @@
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 public class TreeGenerator {
-
     private int Max_leaf_size;
     private int Max_trunk;
     private int Max_distance;
-    private int Max_growth;
+    private float Max_growth;
     private int Max_Levels;
     private int Amount_of_trees;
     private ArrayList<Tree> List_of_trees;
 
-    public TreeGenerator(int p_max_leaf_size, int p_max_trunk, int p_max_distance, int p_max_growth,int p_levels, int p_amount_of_trees) {
-
+    public TreeGenerator(int p_max_leaf_size, int p_max_trunk, int p_max_distance, float p_max_growth,int p_levels, int p_amount_of_trees) {
         List_of_trees = new ArrayList<>();
         this.Max_leaf_size = p_max_leaf_size;
         this.Max_trunk = p_max_trunk;
@@ -19,26 +19,23 @@ public class TreeGenerator {
         this.Max_growth = p_max_growth;
         this.Max_Levels = p_levels;
         this.Amount_of_trees = p_amount_of_trees;
+        generate_trees();
+        printTrees();
     }
 
     public void generate_trees(){
-
         for (int tree_index = 0; tree_index < Amount_of_trees; tree_index++) {
-
             float leaf_size =  (float)(Math.random()*((Max_leaf_size-1)+1))+1;
             float distance = (float)(Math.random()*((Max_leaf_size-1)+1))+1;
             float trunk = (float)(Math.random()*((Max_leaf_size-1)+1))+1;
             float growth = (float)(Math.random()*((Max_growth-1)+1))+1;
             int levels = (int)(Math.random()*((Max_growth-1)+1))+1;
-
             Tree tree = new Tree(leaf_size, distance, trunk, growth, levels);
             viability_of_tree(tree);
         }
-
     }
 
-    public void viability_of_tree(Tree p_tree){
-
+    public void viability_of_tree(@NotNull Tree p_tree){
         float viability;
         float currentDistance = p_tree.getDistance() / Max_distance;     //Menor = mejor
         float currentLeaf = 1 - (p_tree.getLeaf_size() / (Max_leaf_size + 1));     //Mayor = mejor
@@ -48,6 +45,32 @@ public class TreeGenerator {
         viability = currentDistance * currentLeaf * currentTrunk * currentGrowth * currentLevels;
         p_tree.setScore(viability);
         List_of_trees.add(p_tree);
+    }
+
+    public void printTrees(){
+        for(Tree tree : List_of_trees){
+            System.out.println("Score: " + tree.getScore());
+            System.out.println("Distance: " + tree.getDistance());
+            System.out.println("Trunk size: " + tree.getTrunk());
+            System.out.println("Levels: " + tree.getLevels());
+            System.out.println("Growth: " + tree.getGrowth());
+            System.out.println("Leaf size: " + tree.getLeaf_size());
+            System.out.println("Amount of leaves: " + tree.getAmount_leaves());
+            System.out.println("Time: " + timeForTree(tree) + "\n");
+        }
+    }
+
+    public int timeForTree(Tree tree){
+        int ans = 0;
+        ans += Max_distance;
+        ans += Max_trunk;
+        double current = tree.getTrunk();
+        for(int i = 0; i < tree.getLevels(); i++){
+            current = current * tree.getGrowth();
+            ans += current;
+        }
+        ans = (ans * 2) + 1;
+        return ans;
     }
 
     public int getMax_leaf_size() {
@@ -74,11 +97,11 @@ public class TreeGenerator {
         Max_distance = max_distance;
     }
 
-    public int getMax_growth() {
+    public float getMax_growth() {
         return Max_growth;
     }
 
-    public void setMax_growth(int max_growth) {
+    public void setMax_growth(float max_growth) {
         Max_growth = max_growth;
     }
 
