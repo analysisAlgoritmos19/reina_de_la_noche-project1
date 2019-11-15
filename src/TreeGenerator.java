@@ -12,7 +12,7 @@ public class TreeGenerator {
     private float Max_growth;
     private int Max_Levels;
     private int Amount_of_trees;
-    private float Worst_case;
+    private int Worst_case;
     private ArrayList<Tree> List_of_trees;
     private TreeMap<Double, Tree> Sorted_Scores = new TreeMap<Double, Tree>();
     private TreeMap<Float, Tree> Sorted_Distances = new TreeMap<Float, Tree>();
@@ -26,7 +26,7 @@ public class TreeGenerator {
         this.Max_Levels = p_levels;
         this.Amount_of_trees = p_amount_of_trees;
         set_Worst_case();
-        System.out.println("Worst case: " + Worst_case);
+        System.out.println("Worst case: " + Worst_case + "\n");
         generate_trees();
         printTrees();
     }
@@ -52,17 +52,20 @@ public class TreeGenerator {
         float current_Growth = p_tree.getGrowth();                    //Mayor = mejor
         float current_Levels = (float)p_tree.getLevels();   //Mayor = mejor
 
-        distance_value = current_Distance + current_Trunk;
+        distance_value = current_Distance;
         float current = current_Trunk;
         for(int i = 0; i < current_Levels; i++){
-            current += current * current_Growth;
+            distance_value += current;
+            current = current * current_Growth;
         }
-        distance_value += current;
 
-        // System.out.println("Distance_value: " + distance_value);
+        System.out.println("Distance_value: " + distance_value);
 
+        float leaf_ratio = current_Leaf / Max_leaf_size;
         float distance_ratio = distance_value / Worst_case;
-        viability = distance_ratio * (1-(current_Leaf / Max_leaf_size));
+        System.out.println("Distance ratio: " + distance_ratio);
+        System.out.println("Leaf ratio: " + leaf_ratio + "\n");
+        viability = distance_ratio;
         // System.out.println("Viability: " + viability + "\n");
 
         BigDecimal bd = new BigDecimal(viability).setScale(3, RoundingMode.HALF_UP);
@@ -75,10 +78,10 @@ public class TreeGenerator {
         Worst_case = Max_distance;
         double current = Max_trunk;
         for(int i = 0; i < Max_Levels; i++){
-            current += current * 0.9;
+            Worst_case += current;
+            current = current * 0.9;
         }
-        Worst_case += current;
-        Worst_case *= 1;
+        //Worst_case += current;
     }
 
     public void printTrees(){
