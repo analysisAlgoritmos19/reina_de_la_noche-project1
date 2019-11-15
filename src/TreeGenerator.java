@@ -1,6 +1,7 @@
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.TreeMap;
 
 public class TreeGenerator {
     private int Max_leaf_size;
@@ -10,6 +11,8 @@ public class TreeGenerator {
     private int Max_Levels;
     private int Amount_of_trees;
     private ArrayList<Tree> List_of_trees;
+    private TreeMap<Float, Tree> Sorted_Scores = new TreeMap<Float, Tree>();
+    private TreeMap<Float, Tree> Sorted_Distances = new TreeMap<Float, Tree>();
 
     public TreeGenerator(int p_max_leaf_size, int p_max_trunk, int p_max_distance, float p_max_growth,int p_levels, int p_amount_of_trees) {
         List_of_trees = new ArrayList<>();
@@ -26,16 +29,17 @@ public class TreeGenerator {
     public void generate_trees(){
         for (int tree_index = 0; tree_index < Amount_of_trees; tree_index++) {
             float leaf_size =  (float)(Math.random()*((Max_leaf_size-1)+1))+1;
-            float distance = (float)(Math.random()*((Max_leaf_size-1)+1))+1;
-            float trunk = (float)(Math.random()*((Max_leaf_size-1)+1))+1;
-            float growth = (float)(Math.random()*((Max_growth-1)+1))+1;
-            int levels = (int)(Math.random()*((Max_growth-1)+1))+1;
+            Random r = new Random();
+            int distance = r.nextInt(Max_distance - 1) + 1;
+            int trunk = r.nextInt(Max_leaf_size - 1) + 1;
+            float growth = (float)(Math.random());
+            int levels = (int)(Math.random()*((Max_Levels - 1) + 1)) + 1;
             Tree tree = new Tree(leaf_size, distance, trunk, growth, levels);
             viability_of_tree(tree);
         }
     }
 
-    public void viability_of_tree(@NotNull Tree p_tree){
+    public void viability_of_tree(Tree p_tree){
         float viability;
         float currentDistance = p_tree.getDistance() / Max_distance;     //Menor = mejor
         float currentLeaf = 1 - (p_tree.getLeaf_size() / (Max_leaf_size + 1));     //Mayor = mejor
@@ -71,6 +75,18 @@ public class TreeGenerator {
         }
         ans = (ans * 2) + 1;
         return ans;
+    }
+
+    public void sortByScore(){
+        for(Tree tree : List_of_trees){
+            Sorted_Scores.put(tree.getScore(), tree);
+        }
+    }
+
+    public void sortByDistance(){
+        for(Tree tree : List_of_trees){
+            Sorted_Distances.put(tree.getDistance(), tree);
+        }
     }
 
     public int getMax_leaf_size() {

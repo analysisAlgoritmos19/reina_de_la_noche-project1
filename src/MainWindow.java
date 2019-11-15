@@ -1,4 +1,5 @@
 import javax.swing.JOptionPane;
+import java.util.Random;
 
 public class MainWindow extends javax.swing.JFrame {
 
@@ -24,6 +25,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         growthBox = new javax.swing.JTextField();
         levelBox = new javax.swing.JTextField();
+        NEW_BUTTON = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,6 +62,13 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        NEW_BUTTON.setText("Random");
+        NEW_BUTTON.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NEW_BUTTONActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -75,23 +84,28 @@ public class MainWindow extends javax.swing.JFrame {
                                                 .addComponent(jLabel6)
                                                 .addGap(100, 100, 100)
                                                 .addComponent(amount, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-                                                .addGroup(layout.createSequentialGroup()
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                                        .addComponent(jLabel4)
+                                                                        .addComponent(jLabel5)
+                                                                        .addComponent(jLabel7))
+                                                                .addGap(48, 48, 48)
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                                .addComponent(jLabel4)
-                                                                .addComponent(jLabel5)
-                                                                .addComponent(jLabel7))
-                                                        .addGap(48, 48, 48)
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                .addComponent(levelBox)
-                                                                .addComponent(growthBox)
-                                                                .addComponent(dist, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                                                                .addComponent(leaf)
-                                                                .addComponent(trunk)))))
+                                                                        .addComponent(levelBox)
+                                                                        .addComponent(growthBox)
+                                                                        .addComponent(dist, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                                                                        .addComponent(leaf)
+                                                                        .addComponent(trunk)))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(NEW_BUTTON, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)))
+                                                .addGap(0, 0, Short.MAX_VALUE)))
                                 .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
@@ -124,7 +138,9 @@ public class MainWindow extends javax.swing.JFrame {
                                         .addComponent(jLabel6)
                                         .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButton1)
+                                        .addComponent(NEW_BUTTON))
                                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -159,6 +175,18 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void levelBoxActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+    }
+
+    private void NEW_BUTTONActionPerformed(java.awt.event.ActionEvent evt) {
+        Random r = new Random();
+        int leaf_size =  r.nextInt(30);
+        int distance = r.nextInt(100);
+        int trunk = r.nextInt(35);
+        float growth = (float)(Math.random());
+        int levels = r.nextInt(18);
+        int amounts = r.nextInt(120);
+
+        TreeGenerator l = new TreeGenerator(leaf_size, trunk, distance, growth, levels, amounts);
     }
 
     /**
@@ -197,6 +225,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify
+    private javax.swing.JButton NEW_BUTTON;
     private javax.swing.JTextField amount;
     private javax.swing.JTextField dist;
     private javax.swing.JTextField growthBox;

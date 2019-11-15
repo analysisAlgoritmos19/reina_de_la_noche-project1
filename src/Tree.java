@@ -1,4 +1,3 @@
-import org.jetbrains.annotations.Contract;
 
 public class Tree {
 
@@ -9,10 +8,8 @@ public class Tree {
     private int levels;
     private double amount_leaves;
     private float score;
-    private float total_time;
+    private double total_time;
 
-
-    @Contract(pure = true)
     public Tree(float leaf_size, float distance, float trunk, float growth, int levels){
         this.leaf_size = leaf_size;
         this.distance = distance;
