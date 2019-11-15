@@ -14,7 +14,7 @@ public class Probs {
 
     public void create_ratio_table(Float ratio){
         ratio_table = new LinkedHashMap<Float, ArrayList<Tree>>();
-        for(float range = ratio; range < 1; range += ratio){
+        for(float range = ratio; range <= 1; range += ratio){
             ArrayList<Tree> ratio_tree_list =  new ArrayList<Tree>();
             ratio_table.put(range, ratio_tree_list);
         }
@@ -41,7 +41,7 @@ public class Probs {
         }
     }
 
-    public float select_trees(){
+    public ArrayList<Tree> select_trees(){
         Random rand = new Random();
         float choice = (float) (rand.nextFloat() * (1.0 - 0.0) + 0.0);
         float accumulator = (float) 0.0;
@@ -52,22 +52,41 @@ public class Probs {
                 accumulator += probability;
                 current_key = key;
                 if(choice < accumulator){
-                    //return ratio_table.get(key);
-                    return current_key;
+                    System.out.printf("Entro a : %2f \n",current_key);
+                    return get_sub_array(ratio_table.get(key));
                 }
             }
         }
-        return current_key;
+        System.out.printf("Entro a : %2f \n",current_key);
+        return get_sub_array(ratio_table.get(current_key));
+    }
+
+    private ArrayList<Tree> get_sub_array(ArrayList<Tree> tree_arrayList){
+        Random rand = new Random();
+        ArrayList<Tree> sub_array = new ArrayList<>();
+        int size_array = tree_arrayList.size();
+        float percentage = (float) (rand.nextFloat() * (0.5 - 0.3) + 0.3);
+        for(int amount_of_trees = Math.round(size_array * percentage);amount_of_trees > 0; amount_of_trees--){
+            int array_index = rand.nextInt(size_array);
+            sub_array.add(tree_arrayList.get(array_index));
+            tree_arrayList.remove(array_index);
+            size_array--;
+        }
+        return sub_array;
     }
 
 
 
     public static void main(String[] args){
-        TreeGenerator l = new TreeGenerator(20,25,1000, (float) 1.0,18,15);
+        TreeGenerator l = new TreeGenerator(45,50,10000, (float) 1.0,18,10);
         Probs probs = new Probs((float)0.2);
         probs.fill_ratio_table(l.getList_of_trees());
         probs.print_ratio_table();
-        System.out.printf("Entro a : %2f", probs.select_trees());
+        ArrayList<Tree> sub_array = probs.select_trees();
+        for(Tree tree : sub_array){
+            tree.printTree();
+        }
+        System.out.println(sub_array.size());
     }
 
 

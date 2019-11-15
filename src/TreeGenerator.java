@@ -59,12 +59,11 @@ public class TreeGenerator {
             current = current * current_Growth;
         }
 
-        System.out.println("Distance_value: " + distance_value);
 
-        float leaf_ratio = current_Leaf / Max_leaf_size;
+        float leaf_ratio = 1 - (current_Leaf / (Max_leaf_size + 1));
         float distance_ratio = distance_value / Worst_case;
-        System.out.println("Distance ratio: " + distance_ratio);
-        System.out.println("Leaf ratio: " + leaf_ratio + "\n");
+        //System.out.println("Distance ratio: " + distance_ratio);
+        //System.out.println("Leaf ratio: " + leaf_ratio + "\n");
         viability = distance_ratio;
         // System.out.println("Viability: " + viability + "\n");
 
