@@ -62,7 +62,7 @@ public class TreeGenerator {
         // System.out.println("Distance_value: " + distance_value);
 
         float distance_ratio = distance_value / Worst_case;
-        viability = distance_ratio * (current_Leaf / Max_leaf_size);
+        viability = distance_ratio * (1-(current_Leaf / Max_leaf_size));
         // System.out.println("Viability: " + viability + "\n");
 
         BigDecimal bd = new BigDecimal(viability).setScale(3, RoundingMode.HALF_UP);
