@@ -112,7 +112,7 @@ public class MainWindow extends javax.swing.JFrame {
             trunkSize = Integer.parseInt(trunk.getText());
             quantity = Integer.parseInt(amount.getText());
             
-            Logic l = new Logic(distance, leafSize, trunkSize, quantity);
+            TreeGenerator l = new TreeGenerator(distance, leafSize, trunkSize, quantity);
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(this, "All values should be numbers...", "Error", JOptionPane.ERROR_MESSAGE);
