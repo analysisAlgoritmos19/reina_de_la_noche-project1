@@ -34,11 +34,11 @@ public class TreeGenerator {
     public void generate_trees(){
         for (int tree_index = 0; tree_index < Amount_of_trees; tree_index++) {
             Random r = new Random();
-            float leaf_size =  r.nextInt(Max_leaf_size - 1) + 1;
-            int distance = r.nextInt(Max_distance - 1) + 1;
-            int trunk = r.nextInt(Max_leaf_size - 1) + 1;
+            float leaf_size =  r.nextInt(Max_leaf_size) + 1;
+            int distance = r.nextInt(Max_distance) + 1;
+            int trunk = r.nextInt(Max_leaf_size) + 1;
             float growth = ((float)(r.nextInt(8) + 1)) / 10;
-            int levels = r.nextInt(Max_Levels - 1) + 1;
+            int levels = r.nextInt(Max_Levels) + 1;
             Tree tree = new Tree(leaf_size, distance, trunk, growth, levels);
             viability_of_tree(tree);
         }
@@ -59,9 +59,8 @@ public class TreeGenerator {
             current = current * current_Growth;
         }
 
-        System.out.println("Distance_value: " + distance_value);
 
-        float leaf_ratio = current_Leaf / Max_leaf_size;
+        float leaf_ratio = 1 - (current_Leaf / (Max_leaf_size + 1));
         float distance_ratio = distance_value / Worst_case;
         System.out.println("Distance ratio: " + distance_ratio);
         System.out.println("Leaf ratio: " + leaf_ratio + "\n");
