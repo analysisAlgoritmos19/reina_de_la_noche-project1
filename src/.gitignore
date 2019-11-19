@@ -1,4 +1,3 @@
-.idea/**/workspace.xml
+.idea/
 out/
-.idea/**/misc.xml
-.idea/**/vcs.xml
+.DS_Store
