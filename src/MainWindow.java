@@ -1,4 +1,5 @@
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class MainWindow extends javax.swing.JFrame {
@@ -8,7 +9,6 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     private void initComponents() {
-
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         dist = new javax.swing.JTextField();
@@ -159,7 +159,11 @@ public class MainWindow extends javax.swing.JFrame {
             quantity = java.lang.Math.abs(Integer.parseInt(amount.getText()));
 
             if(growth <= 1){
-                TreeGenerator l = new TreeGenerator(leafSize, trunkSize, distance, growth, levels, quantity);
+                System.out.println("Se impirme algo");
+                TreeGenerator tree_gen = new TreeGenerator(leafSize, trunkSize, distance, growth, levels, quantity);
+                ArrayList<Tree> tree_list = new ArrayList<Tree>(tree_gen.getList_of_trees());
+                Greedy test = new Greedy(tree_list);
+                test.printTrees();
             }
             else{
                 JOptionPane.showMessageDialog(this, "Tree growth should be less than 1", "Error", JOptionPane.ERROR_MESSAGE);
@@ -195,6 +199,10 @@ public class MainWindow extends javax.swing.JFrame {
         System.out.println("Amount of trees: " + amounts + "\n");
 
         TreeGenerator l = new TreeGenerator(leaf_size, trunk, distance, growth, levels, amounts);
+        ArrayList<Tree> tree_list = new ArrayList<Tree>(l.getList_of_trees());
+        Greedy test = new Greedy(tree_list);
+        test.printTrees();
+
     }
 
     /**

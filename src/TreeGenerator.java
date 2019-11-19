@@ -2,6 +2,8 @@
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Random;
 import java.util.TreeMap;
 
@@ -26,7 +28,6 @@ public class TreeGenerator {
         this.Max_Levels = p_levels;
         this.Amount_of_trees = p_amount_of_trees;
         set_Worst_case();
-        System.out.println("Worst case: " + Worst_case + "\n");
         generate_trees();
         //printTrees();
     }
@@ -34,17 +35,18 @@ public class TreeGenerator {
     public void generate_trees(){
         for (int tree_index = 0; tree_index < Amount_of_trees; tree_index++) {
             Random r = new Random();
-            float leaf_size =  r.nextInt(Max_leaf_size - 1) + 1;
-            int distance = r.nextInt(Max_distance - 1) + 1;
-            int trunk = r.nextInt(Max_leaf_size - 1) + 1;
+            float leaf_size =  r.nextInt(Max_leaf_size) + 1;
+            int distance = r.nextInt(Max_distance) + 1;
+            int trunk = r.nextInt(Max_leaf_size) + 1;
             float growth = ((float)(r.nextInt(8) + 1)) / 10;
-            int levels = r.nextInt(Max_Levels - 1) + 1;
+            int levels = r.nextInt(Max_Levels) + 1;
             Tree tree = new Tree(leaf_size, distance, trunk, growth, levels);
             viability_of_tree(tree);
         }
     }
 
     public void viability_of_tree(Tree p_tree){
+
         float distance_value, viability;
         float current_Distance = p_tree.getDistance();     //Menor = mejor
         float current_Leaf = p_tree.getLeaf_size();     //Mayor = mejor
@@ -64,8 +66,8 @@ public class TreeGenerator {
         float distance_ratio = distance_value / Worst_case;
         //System.out.println("Distance ratio: " + distance_ratio);
         //System.out.println("Leaf ratio: " + leaf_ratio + "\n");
+
         viability = distance_ratio;
-        // System.out.println("Viability: " + viability + "\n");
 
         BigDecimal bd = new BigDecimal(viability).setScale(3, RoundingMode.HALF_UP);
         double rounded_viability = bd.doubleValue();
