@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-public class Timestamp {
+public class Timestamp implements ITestConstants{
     private int time;
     private  int amount_ants;
     private HashMap<String, State> states;
@@ -12,7 +12,7 @@ public class Timestamp {
     }
 
     private void create_states(int groundTime, int treeTime) {
-        states = new HashMap<String, State>();
+        states = new HashMap<>();
         states.put("Ready", new State(amount_ants, 1));
         states.put("Walking", new State(0, groundTime));
         states.put("Up", new State(0, groundTime + treeTime ));
@@ -36,7 +36,7 @@ public class Timestamp {
     }
 
     private int calculate_ants_in_state(String state, int previous_state_ants){
-        int ants_in_other_states = Constants.SPEED_ANT * (time - states.get(state).getTime());
+        int ants_in_other_states = SPEED_ANT * (time - states.get(state).getTime());
         System.out.println(ants_in_other_states);
         if(ants_in_other_states < 0){
             states.get(state).setAmount_of_ants(previous_state_ants);
