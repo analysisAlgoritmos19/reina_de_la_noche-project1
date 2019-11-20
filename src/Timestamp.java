@@ -2,13 +2,16 @@ import java.util.HashMap;
 
 public class Timestamp implements ITestConstants{
     private int time;
-    private  int amount_ants;
+    private static int amount_ants = 100;
+    private int amount_leaves;
     private HashMap<String, State> states;
 
-    public Timestamp(int pTime, int pGroundTime, int pTreeTime, int pAmount_ants){
+    public Timestamp(int pTime, int pGroundTime, int pTreeTime, int pAmount_ants, int pAmount_leaves){
         this.time = pTime;
-        this.amount_ants = pAmount_ants;
+        //this.amount_ants = pAmount_ants;
+        this.amount_leaves = pAmount_leaves;
         create_states(pGroundTime, pTreeTime);
+
     }
 
     private void create_states(int groundTime, int treeTime) {
@@ -25,10 +28,14 @@ public class Timestamp implements ITestConstants{
         ants_in_other_states = calculate_ants_in_state("Walking", ants_in_other_states);
         ants_in_other_states = calculate_ants_in_state("Up", ants_in_other_states);
         ants_in_other_states = calculate_ants_in_state("Down", ants_in_other_states);
-        calculate_ants_in_state("Returning", ants_in_other_states);
+        ants_in_other_states = calculate_ants_in_state("Returning", ants_in_other_states);
+        if(ants_in_other_states != 0){
+            states.get("Ready").setAmount_of_ants(states.get("Ready").getAmount_of_ants() + ants_in_other_states);
+        }
     }
 
     public void print_states(){
+        System.out.printf("TIMESTAMP %d \n", time);
         for(String state : states.keySet()){
             System.out.println(state);
             System.out.printf("Amount of ants: %d \n", states.get(state).getAmount_of_ants() );
@@ -37,7 +44,10 @@ public class Timestamp implements ITestConstants{
 
     private int calculate_ants_in_state(String state, int previous_state_ants){
         int ants_in_other_states = SPEED_ANT * (time - states.get(state).getTime());
-        System.out.println(ants_in_other_states);
+        /*if(amount_leaves - ants_in_other_states <= 0 || amount_ants -ants_in_other_states <= 0){
+            ants_in_other_states = 100;
+            states.get(state).setAmount_of_ants(0);
+        }*/
         if(ants_in_other_states < 0){
             states.get(state).setAmount_of_ants(previous_state_ants);
             return 0;

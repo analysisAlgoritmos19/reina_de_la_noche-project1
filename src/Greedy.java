@@ -15,18 +15,4 @@ public class Greedy {
         }
     }
 
-
-    public int timeForTree(TestTree tree){
-        System.out.println();
-        int ans = 0;
-        ans += Max_distance;
-        ans += Max_trunk;
-        double current = tree.getLength();
-        for(int i = 0; i < tree.getLevels(); i++){
-            current = current * tree.getGrowth();
-            ans += current;
-        }
-        ans = (ans * 2) + 1;
-        return ans;
-    }
 }
