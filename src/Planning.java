@@ -13,13 +13,19 @@ public class Planning implements ITestConstants {
         int tree_time = calculate_tree_time(pTree);
         System.out.printf("Ground time: %d   Tree time: %d \n", ground_time, tree_time);
         long finish_time = estimated_finish_time(pTree, (ground_time + tree_time) *2, 100);
-        int start_time = 0;
-        while(finish_time > 0){
-            Timestamp timestamp = new Timestamp(start_time, ground_time , tree_time, 100, (int) pTree.getAmount_leaves());
+        int start_time = 10;
+        int amount_ants = 100;
+        int available_ants = amount_ants;
+       /* Timestamp timestamp = new Timestamp(190, ground_time , tree_time, amount_ants, 4, (int) pTree.getAmount_leaves());
+        timestamp.calculate_states();
+        timestamp.print_states();*/
+       while(finish_time > 0){
+            Timestamp timestamp = new Timestamp(start_time, ground_time , tree_time, amount_ants, available_ants, (int) pTree.getAmount_leaves());
             timestamp.calculate_states();
             timestamp.print_states();
             finish_time -= time_seconds;
             start_time += time_seconds;
+            available_ants = timestamp.get_ants_ready();
         }
     }
 
