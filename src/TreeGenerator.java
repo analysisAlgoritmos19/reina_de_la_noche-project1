@@ -64,6 +64,9 @@ public class TreeGenerator {
 
         float leaf_ratio = 1 - (current_Leaf / (Max_leaf_size + 1));
         float distance_ratio = distance_value / Worst_case;
+        //System.out.println("Distance ratio: " + distance_ratio);
+        //System.out.println("Leaf ratio: " + leaf_ratio + "\n");
+
         viability = distance_ratio;
 
         BigDecimal bd = new BigDecimal(viability).setScale(3, RoundingMode.HALF_UP);
