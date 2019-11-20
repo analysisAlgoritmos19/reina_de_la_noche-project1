@@ -1,6 +1,4 @@
 
-
-
 public class Tree implements Comparable<Tree>{
 
     private float leaf_size;
