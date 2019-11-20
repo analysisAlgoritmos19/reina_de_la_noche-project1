@@ -1,16 +1,26 @@
 
 public class TestTree {
-	int posX;
-	int length;
-	int levels;
-	double leafLength;
+	private int posX;
+	private int length;
+	private int levels;
+	private double leafLength;
+	private double score;
+	private long amount_leaves;
 
 	public TestTree(int pPosX, int pLength, int pLevels) {
 		this.posX = pPosX;
 		this.length = pLength;
 		this.levels = pLevels;
-		
-		for(leafLength=pLength; --pLevels>0; leafLength*=ITestConstants.GROW_PERCENTAGE);
+		this.amount_leaves = (long) Math.pow(2,levels);
+		for(leafLength = pLength; --pLevels > 0; leafLength *= ITestConstants.GROW_PERCENTAGE);
+	}
+
+	public void printTree(){
+		System.out.println("Score: " + score);
+		System.out.println("Distance: " + posX);
+		System.out.println("Trunk size: " + length);
+		System.out.println("Levels: " + levels);
+		System.out.println("Amount of leaves: " + amount_leaves);
 	}
 
 	public int getPosX() {
@@ -32,4 +42,10 @@ public class TestTree {
 	public double getLeafLength() {
 		return this.leafLength;
 	}
+
+	public double getScore() { return score; }
+
+	public void setScore(double score) { this.score = score; }
+
+	public long getAmount_leaves() { return amount_leaves; }
 }

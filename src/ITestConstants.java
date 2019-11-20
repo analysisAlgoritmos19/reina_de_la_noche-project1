@@ -1,11 +1,16 @@
 
 public interface ITestConstants {
-	public final int AMOUNT_OF_TESTS = 3;
-	public final int TEST_POSICION_HORMIGUERO = 1000;
-	public final double GROW_PERCENTAGE = 0.85;
+
+	int AMOUNT_OF_TESTS = 3;
+	int TEST_POSICION_HORMIGUERO = 1000;
+	double GROW_PERCENTAGE = 0.85;
+	int SPEED_ANT = 1;
+	double RANGE = 0.2;
+	int TIMESTAMP_FRECUENCY = 10;
 	
 	//QUANTITY(0), MIN_DISTANCE(1), MAX_DISTANCE(2), MIN_LENGTH(3), MAX_LENGTH(4), MIN_LEVELS(5), MAX_LEVELS(6);
-	public final int TEST_RULES[][][] = {
+
+	int[][][] TEST_RULES = {
 		{
 			{10,10,100,60,100,8,8},
 			{10,100,200,60,100,8,8},
