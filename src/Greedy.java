@@ -15,7 +15,7 @@ public class Greedy {
         }
     }
 
-
+/*
     public int timeForTree(TestTree tree){
         System.out.println();
         int ans = 0;
@@ -29,4 +29,6 @@ public class Greedy {
         ans = (ans * 2) + 1;
         return ans;
     }
+
+ */
 }

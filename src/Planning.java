@@ -6,7 +6,7 @@ import java.util.Date;
 public class Planning {
 
     String initialTime = "00:00:00";  //La hora con forma de String
-
+/*
     public ArrayList<TestTree> planning_function(ArrayList<TestTree> pList_of_tree) throws ParseException {
 
         SimpleDateFormat sdf = new SimpleDateFormat("HH:MM:SS");
@@ -49,5 +49,7 @@ public class Planning {
         Planning planning =  new Planning();
         planning.Generate_times(tree,40);
     }
+
+ */
 
 }
