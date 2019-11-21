@@ -4,7 +4,7 @@ public interface ITestConstants {
 	int AMOUNT_OF_TESTS = 3;
 	int TEST_POSICION_HORMIGUERO = 1000;
 	double GROW_PERCENTAGE = 0.85;
-	int SPEED_ANT = 1;
+	double SPEED_ANT = 1.0;
 	double RANGE = 0.2;
 	int TIMESTAMP_FRECUENCY = 10;
 	
