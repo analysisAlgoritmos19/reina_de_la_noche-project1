@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class TestTree {
 	private int posX;
@@ -6,6 +7,7 @@ public class TestTree {
 	private double leafLength;
 	private double score;
 	private long amount_leaves;
+	private ArrayList<Timestamp> timestamps;
 
 	public TestTree(int pPosX, int pLength, int pLevels) {
 		this.posX = pPosX;
@@ -14,6 +16,8 @@ public class TestTree {
 		this.amount_leaves = (long) Math.pow(2,levels);
 		for(leafLength = pLength; --pLevels > 0; leafLength *= ITestConstants.GROW_PERCENTAGE);
 	}
+
+	public void setTimestamps(ArrayList<Timestamp> timestamps) { this.timestamps = timestamps; }
 
 	public void printTree(){
 		System.out.println("Score: " + score);
