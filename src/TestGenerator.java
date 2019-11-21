@@ -98,6 +98,7 @@ public class TestGenerator implements ITestConstants {
 	}
 
 	public static void main(String args[]) {
+
 		TestGenerator generator = new TestGenerator();
 
 		System.out.println(generator.getTests()[0].size());

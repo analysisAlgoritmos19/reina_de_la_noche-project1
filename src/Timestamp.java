@@ -47,18 +47,10 @@ public class Timestamp implements ITestConstants{
             ants_in_other_states = calculate_ants_in_state("Walking", ants_in_other_states,true);
             ants_in_other_states = calculate_ants_in_state("Up", ants_in_other_states,true);
             ants_in_other_states = calculate_ants_in_state("Down", ants_in_other_states,true);
-            ants_in_other_states = calculate_ants_in_state("Returning", ants_in_other_states,true);
-
-
-
-
+            calculate_ants_in_state("Returning", ants_in_other_states,true);
         }
 
 
-    }
-
-    public int get_ants_ready(){
-        return states.get("Ready").getAmount_of_ants();
     }
 
     public void print_states(){
@@ -68,7 +60,6 @@ public class Timestamp implements ITestConstants{
             System.out.printf("Amount of ants: %d \n", states.get(state).getAmount_of_ants() );
         }
     }
-
     private int calculate_ants_in_state(String state, int previous_state_ants, boolean rearrange){
         int time_temp = time;
         if(time/distance > 0){
@@ -91,7 +82,6 @@ public class Timestamp implements ITestConstants{
         if(ants_in_state < 0 ){
             states.get(state).setAmount_of_ants(0);
             int temp = states.get(state).getTime() +  (states.get("Returning").getTime() * (int)(time / states.get("Returning").getTime()));
-            //states.get(state).setTime();
             return previous_state_ants;
         }
         if(rearrange){

@@ -41,6 +41,5 @@ public class Planning implements ITestConstants {
 
     public static void main (String[] args){
         Planning planning =  new Planning();
-        
     }
 }

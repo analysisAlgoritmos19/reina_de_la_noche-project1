@@ -9,9 +9,12 @@ public class Prob {
     public Prob() {
         this.list_of_trees = new ArrayList<>();
         this.leaf_counter = 0;
-        this.percentage_leaf = 0;
+        this.percentage_leaf = (float) 0.0;
     }
 
+    public void setPercentage_leaf(float percentage_leaf) {
+        this.percentage_leaf = percentage_leaf;
+    }
     public ArrayList<TestTree> getList_of_trees() {
         return list_of_trees;
     }
@@ -20,15 +23,12 @@ public class Prob {
         return leaf_counter;
     }
 
-    public void add_to_counter(long add){
-        this.leaf_counter += add;
-    }
-    public void add_tree(TestTree tree){
-        list_of_trees.add(tree);
+    public void add_to_counter(long leaves_add){
+        this.leaf_counter += leaves_add;
     }
 
-    public void calculate_percentage(long total_amount_leaves){
-        this.percentage_leaf = (float)(leaf_counter/total_amount_leaves);
+    public void add_tree(TestTree tree){
+        list_of_trees.add(tree);
     }
 
     public float getPercentage_leaf() {

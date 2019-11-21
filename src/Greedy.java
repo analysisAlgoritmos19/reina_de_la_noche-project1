@@ -17,8 +17,8 @@ public class Greedy {
     }
 
 
-    private void treeMap_to_ArrayList(){
-        for(Map.Entry<Double, TestTree> entry : map.entrySet()){
+    private void treeMap_to_ArrayList() {
+        for (Map.Entry<Double, TestTree> entry : map.entrySet()) {
             testTrees.add(entry.getValue());
         }
     }
