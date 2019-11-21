@@ -26,20 +26,13 @@ public class Timestamp implements ITestConstants{
 
 
     public void calculate_states(){
-
-        System.out.println("cantidad de hormigas: " + amount_ants);
-       /* for(int loop = time / distance; loop > 0;loop--){
-
-        }*/
         int ants_in_other_states = calculate_ants_in_state("Ready", amount_ants,false);
         ants_in_other_states = calculate_ants_in_state("Walking", ants_in_other_states,false);
         ants_in_other_states = calculate_ants_in_state("Up", ants_in_other_states,false);
         ants_in_other_states = calculate_ants_in_state("Down", ants_in_other_states,false);
         ants_in_other_states = calculate_ants_in_state("Returning", ants_in_other_states,false);
         if(ants_in_other_states != 0){
-            System.out.println("Entre");
             if(finish_sending_ants){
-                System.out.println("cantidad de hormigas devueltas : " + ants_in_other_states);
                 AntHill.getInstance().return_ants_to_hill(ants_in_other_states);
                 states.get("Ready").setAmount_of_ants(states.get("Ready").getAmount_of_ants() + ants_in_other_states);
             }

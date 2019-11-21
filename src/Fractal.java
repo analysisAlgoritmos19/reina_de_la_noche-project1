@@ -78,9 +78,22 @@ public class Fractal extends JPanel {
         drawDashedLined(g,1900, 975, 25, 975);
         drawDashedLined(g,1900, 935, 1900, 975);
 
+        Information info = new Information();
+
         for(TestTree tree : trees){
+            ArrayList<Timestamp> current = tree.getTimestamps();
+            if(current != null){
+                for(Timestamp time : current){
+                    info.setReady(time.getStates().get("Ready").getAmount_of_ants());
+                    info.setWalking(time.getStates().get("Walking").getAmount_of_ants());
+                    info.setUpL(time.getStates().get("Up").getAmount_of_ants());
+                    info.setDown(time.getStates().get("Down").getAmount_of_ants());
+                    info.setReturning(time.getStates().get("Returning").getAmount_of_ants());
+                    //info.setVisible(true);
+                }
+            }
+
             float percentage = (float) tree.getLength() / (float) max_distance;
-            System.out.println(tree.getLength() + " " + max_distance + " Percentage: " + percentage);
             int current_width = Math.round(percentage * 2048);
             int branchArmLength = tree.getLevels();
             drawTree(g, current_width, 910, -90, branchArmLength);
@@ -93,33 +106,5 @@ public class Fractal extends JPanel {
         ((Graphics2D) g2d).setStroke(dashed);
         g2d.drawLine(x1, y1, x2, y2);
         g2d.dispose();
-    }
-
-    public static void main(String... args) {
-        final JFrame frame = new JFrame("Porfa pásenos :'(");
-        TestGenerator testGenerator = new TestGenerator();
-        int max_height = testGenerator.get_max_length(2);
-        int  max_distance = testGenerator.get_max_distance(2);
-        System.out.println("Max_distance: " + max_distance);
-        System.out.println("Max_height: " + max_height);
-        ArrayList<TestTree> trees = testGenerator.getTests()[2];
-        Greedy greedy = new Greedy(trees);
-        ArrayList<TestTree> testTrees = greedy.get_sorted_list();
-        for(TestTree tree : testTrees){
-            tree.printTree();
-        }
-        Fractal fract = new Fractal(testTrees, max_height, max_distance);
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                frame.setContentPane(new Fractal(testTrees, max_height, max_distance));
-                frame.setSize(2048, 1024);
-                frame.setLocationRelativeTo(null);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setResizable(true);
-                frame.setVisible(true);
-            }
-        });
     }
 }

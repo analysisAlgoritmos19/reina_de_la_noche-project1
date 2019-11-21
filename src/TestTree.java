@@ -19,6 +19,10 @@ public class TestTree {
 
 	public void setTimestamps(ArrayList<Timestamp> timestamps) { this.timestamps = timestamps; }
 
+	public ArrayList<Timestamp> getTimestamps() {
+		return timestamps;
+	}
+
 	public void printTree(){
 		System.out.println("Score: " + score);
 		System.out.println("Distance: " + posX);

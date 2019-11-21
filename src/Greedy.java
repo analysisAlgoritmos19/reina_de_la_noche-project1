@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class Greedy {
-    
+
     private TreeMap<Double, TestTree> map = new TreeMap<Double, TestTree>();
     private ArrayList<TestTree> testTrees = new ArrayList<TestTree>();
 

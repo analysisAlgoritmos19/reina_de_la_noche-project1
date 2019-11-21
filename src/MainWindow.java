@@ -1,22 +1,16 @@
-
+import javax.swing.*;
 import java.util.ArrayList;
 
-/**
- *
- * @author Mau
- */
+
 public class MainWindow extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainWindow
-     */
     public MainWindow() {
         initComponents();
         setSamples();
     }
 
     private void setSamples(){
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<>();
         list.add("0");
         list.add("1");
         list.add("2");
@@ -24,7 +18,7 @@ public class MainWindow extends javax.swing.JFrame {
             sample.addItem(s);
         }
 
-        ArrayList<Integer> nums = new ArrayList<Integer>();
+        ArrayList<Integer> nums = new ArrayList<>();
         for(int i = 0; i <= 30; i++){
             nums.add(i);
         }
@@ -126,7 +120,51 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
+        TestGenerator testGenerator = new TestGenerator();
+        int number = Integer.parseInt(sample.getSelectedItem().toString());
+        ArrayList<TestTree> trees = testGenerator.getTests()[number];
+        Planning planning = new Planning(trees);
+        OurTimer.start_time = System.currentTimeMillis();
+        long seconds = 60*(Integer.parseInt(time.getSelectedItem().toString()));
+        OurTimer.final_time = (long) (OurTimer.start_time + (seconds*1000)*0.2);
+        ArrayList<TestTree> greedyList = planning.planning_for_greedy();
+        System.out.println("Total ants: "+ AntHill.getInstance().getTotal_ants());
+        System.out.println("LeafCounterGreedy: "+ Planning.leafCounterGreedy);
+        System.out.println("La carga de trabajo del greedy fue: "+ ((float)Planning.leafCounterGreedy/AntHill.getInstance().getTotal_ants()));
+        ArrayList<TestTree> probabilisticList = planning.planning_for_probabilistic();
+        System.out.println("LeafCounterProb: "+ Planning.leafCounterProb);
+        System.out.println("La carga de trabajo del probabilista fue: "+ ((float)Planning.leafCounterProb/AntHill.getInstance().getTotal_ants()));
+        int max_distance = testGenerator.get_max_distance(number);
+        int max_height = testGenerator.get_max_length(number);
+        System.out.println("Finished :D");
+
+        final JFrame frame = new JFrame("Greedy");
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                frame.setContentPane(new Fractal(greedyList, max_height, max_distance));
+                frame.setSize(2048, 1024);
+                frame.setLocationRelativeTo(null);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setResizable(true);
+                frame.setVisible(true);
+            }
+        });
+
+
+        final JFrame frame2 = new JFrame("Probabilistic");
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                frame2.setContentPane(new Fractal(probabilisticList, max_height, max_distance));
+                frame2.setSize(2048, 1024);
+                frame2.setLocationRelativeTo(null);
+                frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame2.setResizable(true);
+                frame2.setVisible(true);
+            }
+        });
     }
 
     /**

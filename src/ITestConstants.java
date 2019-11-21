@@ -5,7 +5,7 @@ public interface ITestConstants {
 	int TEST_POSICION_HORMIGUERO = 1000;
 	double GROW_PERCENTAGE = 0.85;
 	double SPEED_ANT = 1.0;
-	double RANGE = 0.2;
+	float RANGE = (float) 0.2;
 	int TIMESTAMP_FRECUENCY = 10;
 	
 	//QUANTITY(0), MIN_DISTANCE(1), MAX_DISTANCE(2), MIN_LENGTH(3), MAX_LENGTH(4), MIN_LEVELS(5), MAX_LEVELS(6);

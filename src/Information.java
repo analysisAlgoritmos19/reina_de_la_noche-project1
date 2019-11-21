@@ -4,37 +4,37 @@ public class Information extends javax.swing.JFrame {
         initComponents();
     }
 
-    public Information(String time, String readyV, String walk, String upV, String downV, String returningV){
-        timestamp.setText(time);
-        ready.setText(readyV);
-        walking.setText(walk);
-        up.setText(upV);
-        down.setText(downV);
-        returning.setText(returningV);
+    public Information(int time, int readyV, int walk, int upV, int downV, int returningV){
+        timestamp.setText(String.valueOf(time));
+        ready.setText(String.valueOf(readyV));
+        walking.setText(String.valueOf(walk));
+        up.setText(String.valueOf(upV));
+        down.setText(String.valueOf(downV));
+        returning.setText(String.valueOf(returningV));
     }
 
-    public void setTimestamp(String value){
-        timestamp.setText(value);
+    public void setTimestamp(int value){
+        timestamp.setText(String.valueOf(value));
     }
 
-    public void setReady(String value){
-        ready.setText(value);
+    public void setReady(int value){
+        ready.setText(String.valueOf(value));
     }
 
-    public void setWalking(String value){
-        walking.setText(value);
+    public void setWalking(int value){
+        walking.setText(String.valueOf(value));
     }
 
-    public void setUpL(String value){
-        up.setText(value);
+    public void setUpL(int value){
+        up.setText(String.valueOf(value));
     }
 
-    public void setDown(String value){
-        down.setText(value);
+    public void setDown(int value){
+        down.setText(String.valueOf(value));
     }
 
-    public void setReturning(String value){
-        returning.setText(value);
+    public void setReturning(int value){
+        returning.setText(String.valueOf(value));
     }
 
     @SuppressWarnings("unchecked")

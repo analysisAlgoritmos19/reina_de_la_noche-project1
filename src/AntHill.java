@@ -23,10 +23,6 @@ public class AntHill implements ITestConstants {
     }
 
 
-    public int getAnts_ready() {
-        return Ants_ready;
-    }
-
     public void return_ants_to_hill(int p_number){
 
         Ants_ready += p_number;
