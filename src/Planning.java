@@ -16,14 +16,14 @@ public class Planning implements ITestConstants {
 
         int distance = (ground_time*2 + tree_time*2);
         int amount_ants = AntHill.getInstance().get_amount_ants(distance);
-        long last_ant_time = estimated_time(pTree, amount_ants,distance) ;
-        long estimated_time = last_ant_time + amount_ants;
-        boolean finished_sending_ants = true;
+        int last_ant_time = estimated_time(pTree, amount_ants,distance) ;
+        int estimated_time = last_ant_time + amount_ants;
+        boolean finished_sending_ants = false;
         /*Timestamp timestamp = new Timestamp(530, ground_time , tree_time, distance, amount_ants, finished_sending_ants);
         timestamp.calculate_states();
         timestamp.print_states();*/
         System.out.println("Estimated time " + estimated_time);
-        for(int time = TIMESTAMP_FRECUENCY; time < 540; time += TIMESTAMP_FRECUENCY){
+        for(int time = TIMESTAMP_FRECUENCY; time < estimated_time; time += TIMESTAMP_FRECUENCY){
             if(time > last_ant_time){
                 finished_sending_ants = true;
             }
@@ -42,8 +42,8 @@ public class Planning implements ITestConstants {
         }*/
     }
 
-    private long estimated_time(TestTree pTree, int amount_ants, int distance){
-        return Math.round((distance * (pTree.getAmount_leaves() / amount_ants))/SPEED_ANT);
+    private int estimated_time(TestTree pTree, int amount_ants, int distance){
+        return (int) (distance * pTree.getAmount_leaves() / amount_ants);
     }
 
 
