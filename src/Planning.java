@@ -12,11 +12,26 @@ public class Planning implements ITestConstants {
         int ground_time = calculate_ground_time(pTree);
         int tree_time = calculate_tree_time(pTree);
         System.out.printf("Ground time: %d   Tree time: %d \n", ground_time, tree_time);
-        //long finish_time = estimated_finish_time(pTree, (ground_time + tree_time) *2, 100);
-        int start_time = 10;
-        Timestamp timestamp = new Timestamp(210, ground_time , tree_time);
+
+
+        int distance = (ground_time*2 + tree_time*2);
+        int amount_ants = AntHill.getInstance().get_amount_ants(distance);
+        long last_ant_time = estimated_time(pTree, amount_ants,distance) ;
+        long estimated_time = last_ant_time + amount_ants;
+        boolean finished_sending_ants = true;
+        /*Timestamp timestamp = new Timestamp(530, ground_time , tree_time, distance, amount_ants, finished_sending_ants);
         timestamp.calculate_states();
-        timestamp.print_states();
+        timestamp.print_states();*/
+        System.out.println("Estimated time " + estimated_time);
+        for(int time = TIMESTAMP_FRECUENCY; time < 540; time += TIMESTAMP_FRECUENCY){
+            if(time > last_ant_time){
+                finished_sending_ants = true;
+            }
+            Timestamp timestamp = new Timestamp(time, ground_time , tree_time, distance, amount_ants, finished_sending_ants);
+            timestamp.calculate_states();
+            timestamp.print_states();
+        }
+
        /*while(finish_time > 0){
             Timestamp timestamp = new Timestamp(start_time, ground_time , tree_time, amount_ants, available_ants, (int) pTree.getAmount_leaves());
             timestamp.calculate_states();
@@ -25,6 +40,10 @@ public class Planning implements ITestConstants {
             start_time += time_seconds;
             available_ants = timestamp.get_ants_ready();
         }*/
+    }
+
+    private long estimated_time(TestTree pTree, int amount_ants, int distance){
+        return Math.round((distance * (pTree.getAmount_leaves() / amount_ants))/SPEED_ANT);
     }
 
 
