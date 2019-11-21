@@ -2,7 +2,9 @@
 export default function define(runtime, observer) {
   const main = runtime.module();
   main.variable(observer()).define(["md"], function(md){return(
-md`D3`
+md`D3
+
+Please don't fail us :'(`
 )});
   main.variable(observer()).define(["d3","DOM","size","pack","data","color"], function(d3,DOM,size,pack,data,color)
 {

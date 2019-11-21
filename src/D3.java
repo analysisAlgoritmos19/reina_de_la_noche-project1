@@ -24,6 +24,7 @@ public class D3 {
             int counter = 1;
             for(Map.Entry<String, Integer> entry : results.entrySet()){
                 csvPrinter.printRecord(entry.getKey(), entry.getValue(), counter);
+                counter++;
             }
             csvPrinter.flush();
         } catch (IOException e) {

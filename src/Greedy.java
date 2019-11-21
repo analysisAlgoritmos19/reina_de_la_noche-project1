@@ -4,8 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class Greedy {
-
-    private ArrayList<TestTree> Sort_trees;
+    
     private TreeMap<Double, TestTree> map = new TreeMap<Double, TestTree>();
     private ArrayList<TestTree> testTrees = new ArrayList<TestTree>();
 
@@ -15,7 +14,6 @@ public class Greedy {
         }
         treeMap_to_ArrayList();
     }
-
 
     private void treeMap_to_ArrayList() {
         for (Map.Entry<Double, TestTree> entry : map.entrySet()) {
